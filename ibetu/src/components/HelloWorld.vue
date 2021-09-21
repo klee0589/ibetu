@@ -5,13 +5,16 @@
 
       <p>{{ product.description }}</p>
 
-      <img width="400" src="https://images-na.ssl-images-amazon.com/images/I/61yZD4-mKjL._SX425_.jpg" />
+      <img
+        width="400"
+        src="https://images-na.ssl-images-amazon.com/images/I/61yZD4-mKjL._SX425_.jpg"
+      />
     </div>
 
     <div v-if="paidFor">
       <h1>Noice, you bought a beautiful lamp!</h1>
 
-      <img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif">
+      <img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif" />
     </div>
 
     <div ref="paypal"></div>
@@ -23,18 +26,18 @@
 export default {
   name: "HelloWorld",
 
-  data: function() {
+  data: function () {
     return {
       loaded: false,
       paidFor: false,
       product: {
-        price: 1.00,
+        price: 1.0,
         description: "leg lamp from that one movie",
-        img: "./assets/lamp.jpg"
-      }
+        img: "./assets/lamp.jpg",
+      },
     };
   },
-  mounted: function() {
+  mounted: function () {
     const script = document.createElement("script");
     script.src =
       "https://www.paypal.com/sdk/js?client-id=AZ2gwgPj3qcDmCGTjBEV48pYZhHnIMS2aa46c0_xivkPJXRSBRJ6kSGFej6QJV5MmU0G_rfNOx6tm5OY";
@@ -42,7 +45,7 @@ export default {
     document.body.appendChild(script);
   },
   methods: {
-    setLoaded: function() {
+    setLoaded: function () {
       this.loaded = true;
       window.paypal
         .Buttons({
@@ -53,10 +56,10 @@ export default {
                   description: this.product.description,
                   amount: {
                     currency_code: "USD",
-                    value: this.product.price
-                  }
-                }
-              ]
+                    value: this.product.price,
+                  },
+                },
+              ],
             });
           },
           onApprove: async (data, actions) => {
@@ -68,13 +71,13 @@ export default {
 
             console.log(order);
           },
-          onError: err => {
+          onError: (err) => {
             console.log(err);
-          }
+          },
         })
         .render(this.$refs.paypal);
-    }
-  }
+    },
+  },
 };
 </script>
 
